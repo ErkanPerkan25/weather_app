@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useGeolocated } from "react-geolocated";
+import "./css/weather_card.css"
 
 const Weather_Card = () =>{
     const [celsius, setCelsius] = useState(null);
@@ -7,6 +8,7 @@ const Weather_Card = () =>{
     const [humidity, setHumidity] = useState(null);
     const [region, setRegion] = useState(null);
     const [city, setCity] = useState(null);
+    const [date, setDate] = useState(null);
 
     const WEATHER_API_KEY = "b2944cf156c5494f9ae223216240702"; 
     const WEATHER_API_URL = "http://api.weatherapi.com/v1";
@@ -36,6 +38,7 @@ const Weather_Card = () =>{
                 setHumidity(json.current["humidity"]);
                 setRegion(json.location["region"]);
                 setCity(json.location["name"]);
+                setDate(json.location["localtime"]);
 
                 console.log(json);
             } catch (error) {
@@ -52,10 +55,10 @@ const Weather_Card = () =>{
     },[coords])
 
     return(
-        <div id="card">
-            <h1>Weather App</h1>
-            <div id="weather">
-                <h4>{city},{region}</h4>
+        <div className="weather_card">
+            <div className="weather_data">
+                <h4>{city}, {region}</h4>
+                <p>{date}</p>
                 <p>Celsius: {celsius} °C</p>
                 <p>Fahrenheit: {fahrenheit} °F</p>
                 <p>Humidity: {humidity} %</p>

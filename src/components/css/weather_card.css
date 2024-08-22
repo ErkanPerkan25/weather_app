@@ -1,0 +1,19 @@
+.weather_card{
+    margin-left: 25px;
+    margin-right: 25px;
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    outline-style: solid;
+    outline-width: thick;
+    border-radius: 5px;
+   
+}
+
+.weather_data{
+}
+
+.weather_data h4{
+    margin: 10px;
+}
