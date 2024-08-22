@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react";
 import { useGeolocated } from "react-geolocated";
 
 const Weather_Card = () =>{
-    const [weatherData, setWeatherData] = useState([]);
     const [celsius, setCelsius] = useState(null);
     const [fahrenheit, setFahrenheit] = useState(null);
     const [humidity, setHumidity] = useState(null);
@@ -31,15 +30,12 @@ const Weather_Card = () =>{
                 }
 
                 const json = await response.json();
-                setWeatherData(json);
 
-                console.log(weatherData);
-
-                setCelsius(weatherData.current["temp_c"]);
-                setFahrenheit(weatherData.current["temp_f"]);
-                setHumidity(weatherData.current["humidity"]);
-                setRegion(weatherData.location["region"]);
-                setCity(weatherData.location["name"]);
+                setCelsius(json.current["temp_c"]);
+                setFahrenheit(json.current["temp_f"]);
+                setHumidity(json.current["humidity"]);
+                setRegion(json.location["region"]);
+                setCity(json.location["name"]);
 
                 console.log(json);
             } catch (error) {
