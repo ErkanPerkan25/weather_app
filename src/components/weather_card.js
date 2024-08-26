@@ -8,10 +8,7 @@ const Weather_Card = () =>{
     const [humidity, setHumidity] = useState(null);
     const [region, setRegion] = useState(null);
     const [city, setCity] = useState(null);
-    const [date, setDate] = useState(null);
-
-    const WEATHER_API_KEY = "b2944cf156c5494f9ae223216240702"; 
-    const WEATHER_API_URL = "http://api.weatherapi.com/v1";
+    const [currentDate, setCurrentDate] = useState(null);
 
     const {coords, isGeolocationAvailable, isGeolocationEnable} =
         useGeolocated({
@@ -20,11 +17,13 @@ const Weather_Card = () =>{
             },
             userDecisionTimeout: 5000,
         });
-
+    
+    const WEATHER_API_KEY = "b2944cf156c5494f9ae223216240702"; 
+    //const FORECAST_WEATHER_API_URL = `http://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&q=${coords["latitude"]},${coords["longitude"]}&days=3`;
 
     async function getData() {
+        const url = `http://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&q=${coords["latitude"]},${coords["longitude"]}&days=3`;
         if(coords){
-            const url = `${WEATHER_API_URL}/current.json?key=${WEATHER_API_KEY}&q=${coords["latitude"]},${coords["longitude"]}`;
             try {
                 const response = await fetch(url);
                 if (!response.ok) {
@@ -38,7 +37,7 @@ const Weather_Card = () =>{
                 setHumidity(json.current["humidity"]);
                 setRegion(json.location["region"]);
                 setCity(json.location["name"]);
-                setDate(json.location["localtime"]);
+                setCurrentDate(json.location["localtime"]);
 
                 console.log(json);
             } catch (error) {
@@ -58,11 +57,15 @@ const Weather_Card = () =>{
         <div className="weather_card">
             <div className="weather_data">
                 <h4>{city}, {region}</h4>
-                <p>{date}</p>
+                <p>{currentDate}</p>
                 <p>Celsius: {celsius} °C</p>
                 <p>Fahrenheit: {fahrenheit} °F</p>
                 <p>Humidity: {humidity} %</p>
             </div>
+
+            <div className="forecast">
+            </div>
+
         </div>
     );
 };

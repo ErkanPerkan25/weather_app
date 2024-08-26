@@ -22,4 +22,5 @@
     flex-direction: row;
     font-size: calc(10px + 2vmin);
     color: white;
+    justify-content: center;
 }
